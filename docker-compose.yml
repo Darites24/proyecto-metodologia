@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mysql:8.0
+    volumes:
+      - ./db_data:/var/lib/mysql
+    restart: always
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME} 
+      MYSQL_USER: ${DB_USER} 
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+
+  app_cd:
+    build: /app_cd
+    container_name: app_cd
+    command: python manage.py runserver
+    volumes:
+      - ./app_cd:/app_cd
+    depends_on:
+      - db
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME} 
+      MYSQL_USER: ${DB_USER} 
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "8085:8085"
