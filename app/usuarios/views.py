@@ -23,6 +23,7 @@ def register_view(request):
         return redirect('usuarios:login')
     return render(request, 'usuarios/register.html', {'form': form})
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('usuarios:login')    

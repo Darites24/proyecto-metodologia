@@ -136,4 +136,5 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_URL = 'usuarios:login'
 LOGIN_REDIRECT_URL = 'home' 
 LOGOUT_REDIRECT_URL = 'usuarios:login'
+API_KEY = os.getenv('API_KEY')
 
